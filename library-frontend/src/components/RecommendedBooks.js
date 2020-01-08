@@ -29,50 +29,22 @@ const RecommendedBooks = (props) => {
 
     return (
       <div>
-          <table>
-         <tbody>
-           <tr>
+        <table>
+          <tbody>
+            <tr>
               <th></th>
               <th>
-               author
+                author
               </th>
               <th>
                 published
               </th>
             </tr>
             {bookFilter()}
-            </tbody>
+          </tbody>
         </table>
-
-       
-        </div>
+      </div>
     )
 }
 
 export default RecommendedBooks
-
-/*
-
- <table>
-         <tbody>
-           <tr>
-              <th></th>
-              <th>
-               author
-              </th>
-              <th>
-                published
-              </th>
-            </tr>
-            {books.map(a =>
-            <tr>
-              <td>{a.title}</td>
-              <td>{a.author}</td>
-              <td>{a.published}</td>
-            </tr>
-          )}
-            </tbody>
-        </table>
-
-
-*/

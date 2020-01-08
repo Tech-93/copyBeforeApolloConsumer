@@ -4,8 +4,7 @@ import Books from './components/Books'
 import NewBook from './components/NewBook'
 import LoginForm from './components/LoginForm'
 import Recommendations from './components/Recommendations'
- 
-import { Query, Subscription } from 'react-apollo'
+import { Query, Subscription, ApolloConsumer } from 'react-apollo'
 import { gql } from 'apollo-boost'
 import { Mutation } from "react-apollo"
 
@@ -112,25 +111,29 @@ const App = (props) => {
     return (
       <div>
         <div>
-        <button onClick={() => setPage('authors')}>authors</button>
-        <button onClick={() => setPage('books')}>books</button>
-        <button onClick={() => setPage('login') } > login </button>
-      </div>
+         <button onClick={() => setPage('authors')}>authors</button>
+         <button onClick={() => setPage('books')}>books</button>
+         <button onClick={() => setPage('login') } > login </button>
+       </div>
 
-      <Query query={ALL_AUTHORS} pollInterval={2000} >
-      {(result) => <Authors show={page === 'authors'} result={result} EDIT_AUTHOR={EDIT_AUTHOR} />}
-    </Query>
+       <Query query={ALL_AUTHORS} pollInterval={2000} >
+         {(result) => <Authors show={page === 'authors'} result={result} EDIT_AUTHOR={EDIT_AUTHOR} />}
+       </Query>
 
-    <Query query={ALL_BOOKS} pollInterval={2000} >
-      {(result) => <Books show={page === 'books'} result={result} />}
-    </Query>
+       <ApolloConsumer>
+         {(client => 
+           <Query query={ALL_BOOKS} pollInterval={2000} >
+             {(result) => <Books show={page === 'books'} result={result} client={client} />}
+           </Query> 
+         )}
+       </ApolloConsumer>
 
 
-    <Mutation mutation={LOGIN} >
-      {(login) =>
-      <LoginForm login={login} show={page === 'login'} setToken={setToken} setPage={setPage} />
-      }
-    </Mutation>
+       <Mutation mutation={LOGIN} >
+         {(login) =>
+           <LoginForm login={login} show={page === 'login'} setToken={setToken} setPage={setPage} />
+         }
+       </Mutation>
       </div>
     )
   }
@@ -159,15 +162,19 @@ const App = (props) => {
       </Subscription>
 
       <Query query={ALL_AUTHORS} pollInterval={2000} >
-      {(result) => <Authors show={page === 'authors'} result={result} EDIT_AUTHOR={EDIT_AUTHOR} />}
-    </Query>
+        {(result) => <Authors show={page === 'authors'} result={result} EDIT_AUTHOR={EDIT_AUTHOR} />}
+      </Query>
 
-    <Query query={ALL_BOOKS} pollInterval={2000} >
-      {(result) => <Books show={page === 'books'} result={result} />}
-    </Query>
+      <ApolloConsumer>
+        {(client => 
+          <Query query={ALL_BOOKS} pollInterval={2000} >
+            {(result) => <Books show={page === 'books'} result={result} client={client} />}
+          </Query> 
+        )}
+      </ApolloConsumer>
 
     
-    <Mutation mutation={ADD_BOOK}>
+      <Mutation mutation={ADD_BOOK}>
         {(addBook) =>
           <NewBook
             addBook={addBook}
@@ -176,17 +183,16 @@ const App = (props) => {
         }
       </Mutation>
 
-      <Query query={ME} >
-      {(result) => <Recommendations show={page === 'recommendations'} result={result} ALL_BOOKS={ALL_BOOKS} />}
-    </Query>    
+      <ApolloConsumer>
+        {(client => 
+          <Query query={ME} pollInterval={2000} >
+            {(result) => <Recommendations show={page === 'recommendations'} result={result} ALL_BOOKS={ALL_BOOKS} client={client} />}
+          </Query> 
+        )}
+      </ApolloConsumer>    
 
     </div>
   )
 }
 
 export default App
-
-
-/*
- 
-*/

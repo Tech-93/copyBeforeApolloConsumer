@@ -16,7 +16,7 @@ const Recommendations = (props) => {
         return null
       }
     
-      if (props.result.loading) {
+    if (props.result.loading) {
         return <div>loading...</div>
       }
 
@@ -34,10 +34,7 @@ const Recommendations = (props) => {
             <p></p>
             <Query query={props.ALL_BOOKS}  >
                 {(result) => <RecommendedBooks result={result} user={user} />}
-            </Query>
-         
-
-           
+            </Query> 
         </div>
     )
 }

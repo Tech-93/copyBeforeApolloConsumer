@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import BirthYearForm from './BirthYearFrom'
 
 import { Mutation } from "react-apollo"
@@ -30,7 +30,7 @@ const Authors = (props) => {
               books
             </th>
           </tr>
-          {authors.map(a =>
+           {authors.map(a =>
             <tr key={a.name}>
               <td>{a.name}</td>
               <td>{a.born}</td>

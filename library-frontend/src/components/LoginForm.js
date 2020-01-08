@@ -14,8 +14,6 @@ const LoginForm = (props) => {
         const result = await props.login({
           variables: { username, password }
         })
-
-        console.log('RESULTS', result)
     
         if (result) {
           const token = result.data.login.value
@@ -32,17 +30,17 @@ const LoginForm = (props) => {
 
     return (
         <div>
-            <form onSubmit={submit} >
-                <div>
-                    username <input value={username} onChange={({ target }) => setUsername(target.value)} /> 
-                </div>
-                <div>
-                    password < input value={password} onChange={({ target }) => setPassword(target.value)} />
-                </div>
-                <div>
-                    <button type='submit' > login </button>
-                </div>
-            </form>
+          <form onSubmit={submit} >
+            <div>
+              username <input value={username} onChange={({ target }) => setUsername(target.value)} /> 
+            </div>
+            <div>
+              password < input value={password} onChange={({ target }) => setPassword(target.value)} />
+            </div>
+            <div>
+              <button type='submit' > login </button>
+            </div>
+          </form>
         </div>
     )
 }
